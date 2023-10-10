@@ -21,152 +21,166 @@
 
 <div class="container-fluid backgroundDarkNoGradient">
 
-<div class="container">
-    <div class="row justify-content-center pt-5 pb-4">
-        <div class="col-md-12">
-            <div class="card shadow p-5 mb-5 backgroundDarkDiagonalGradient text-light">
-                <h1 class="text-center mb-3 display-3">Find your perfect music events here</h1>
+    <div class="container">
+        <form class="row justify-content-center pt-5 pb-4" action="{{url_for('main.search')}}">
+            <div class="col-md-12">
+                <div class="card shadow p-5 mb-5 backgroundDarkDiagonalGradient text-light">
+                    <h1 class="text-center mb-3 display-3">Find your perfect music events here</h1>
 
 
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control fontSize1VW"
-                        aria-label="Text input with dropdown button"
-                        placeholder="Type in any name, locations, time">
-                    <button class="btn buttonGreenBg text-light" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                        Filter ↓
-                    </button>
-                </div>
-                <div class="collapse" id="collapseExample">
-                    <div class="row mb-3">
-                        <div class="col-lg-3 col-md-5 col-sm-12">
-                            <h3 class="my-3">Location</h3>
-                            <form>
-                                <div class="form-group">
-                                    <label for="stateInput fontSize2VW">State</label>
-                                    <input type="string" class="form-control my-2" id="stateInput"
-                                        aria-describedby="stateFilter" placeholder="State">
-                                </div>
-                                <div class="form-group">
-                                    <label for="cityInput">City</label>
-                                    <input type="string" class="form-control my-2" id="cityInput"
-                                        aria-describedby="cityFilter" placeholder="City">
-                                </div>
-                                <div class="form-group">
-                                    <label for="suburbInput">Suburb</label>
-                                    <input type="string" class="form-control my-2" id="suburbInput"
-                                        aria-describedby="suburbFilter" placeholder="Suburb">
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-lg-3 col-md-7 col-sm-12" id="GenresCheckBoxes">
-                            <h3 class="my-3">Genres</h3>
-                            <div class="text-left mb-3">
-                                <input type="checkbox" class="btn-check" id="1" onclick="toggleButton('EDM')"
-                                    autocomplete="off">
-                                <label class="m-1 btn text-light filterButtons" for="1" id="EDM">EDM</label>
-
-                                <input type="checkbox" class="btn-check" id="2"
-                                    onclick="toggleButton('Classical')" autocomplete="off">
-                                <label class="m-1 btn text-light filterButtons" for="2"
-                                    id="Classical">Classical</label>
-
-                                <input type="checkbox" class="btn-check" id="3"
-                                    onclick="toggleButton('Dubstep')" autocomplete="off">
-                                <label class="m-1 btn text-light filterButtons" for="3"
-                                    id="Dubstep">Dubstep</label>
-
-                                <input type="checkbox" class="btn-check" id="4" onclick="toggleButton('Jazz')"
-                                    autocomplete="off">
-                                <label class="m-1 btn text-light filterButtons" for="4" id="Jazz">Jazz</label>
-                                <input type="checkbox" class="btn-check" id="5"
-                                    onclick="toggleButton('Soft Music')" autocomplete="off">
-                                <label class="m-1 btn text-light filterButtons" for="5" id="Soft Music">Soft
-                                    Music</label>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-7 col-sm-12">
-                            <h3 class="my-3">Date</h3>
-                            <div class="container mb-3">
-                                <form action="/action_page.php">
-                                    <!-- <label for="birthdaytime">Birthday (date and time):</label> -->
-                                    <input class="form-control form-control-lg" type="datetime-local"
-                                        id="eventDateTime" name="eventDateTime">
-                                    <!-- <input type="submit"> -->
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control fontSize1VW" aria-label="Text input with dropdown button"
+                            placeholder="Type in any names, suburbs, state, genres" name="mainSearchBar">
+                        <button class="btn buttonGreenBg text-light" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            Filter ↓
+                        </button>
+                    </div>
+                    <div class="collapse" id="collapseExample">
+                        <div class="row mb-3">
+                            <div class="col-lg-3 col-md-5 col-sm-12">
+                                <h3 class="my-3">Location</h3>
+                                <form>
+                                    <div class="form-group">
+                                        <label for="stateInput fontSize2VW">State</label>
+                                        <input type="text" class="form-control my-2" id="stateInput"
+                                            aria-describedby="stateFilter" placeholder="State" name="stateInput">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="suburbInput">Suburb</label>
+                                        <input type="text" class="form-control my-2" id="suburbInput"
+                                            aria-describedby="suburbFilter" placeholder="Suburb" name="suburbInput">
+                                    </div>
                                 </form>
                             </div>
+                            <div class="col-lg-3 col-md-7 col-sm-12" id="GenresCheckBoxes">
+                                <h3 class="my-3">Genres</h3>
+                                <div class="text-left mb-3">
+                                    
+                                    <input type="checkbox" class="btn-check" id="1" onclick="toggleButton('EDM')"
+                                        autocomplete="off" name="genre" value="EDM">
+                                    <label class="m-1 btn text-light filterButtons" for="1" id="EDM">EDM</label>
+
+                                    <input type="checkbox" class="btn-check" id="2" onclick="toggleButton('Classical')"
+                                        autocomplete="off" name="genre" value="Classical">
+                                    <label class="m-1 btn text-light filterButtons" for="2"
+                                        id="Classical">Classical</label>
+
+                                    <input type="checkbox" class="btn-check" id="3" onclick="toggleButton('Dubstep')"
+                                        autocomplete="off" name="genre" value="Dubstep">
+                                    <label class="m-1 btn text-light filterButtons" for="3" id="Dubstep">Dubstep</label>
+
+                                    <input type="checkbox" class="btn-check" id="4" onclick="toggleButton('Jazz')"
+                                        autocomplete="off" name="genre" value="Jazz">
+                                    <label class="m-1 btn text-light filterButtons" for="4" id="Jazz">Jazz</label>
+
+                                    <input type="checkbox" class="btn-check" id="5" onclick="toggleButton('Punk')"
+                                        autocomplete="off" name="genre" value="Punk">
+                                    <label class="m-1 btn text-light filterButtons" for="5" id="Punk">Punk</label>
+
+                                    <input type="checkbox" class="btn-check" id="6" onclick="toggleButton('Orchestral')"
+                                        autocomplete="off" name="genre" value="Orchestral">
+                                    <label class="m-1 btn text-light filterButtons" for="6"
+                                        id="Orchestral">Orchestral</label>
+
+                                    <input type="checkbox" class="btn-check" id="7" onclick="toggleButton('Blues')"
+                                        autocomplete="off" name="genre" value="Blues">
+                                    <label class="m-1 btn text-light filterButtons" for="7" id="Blues">Blues</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-7 col-sm-12">
+                                <h3 class="my-3">Date</h3>
+                                <div class="container mb-3">
+                                    <input class="form-control form-control-lg" type="date" name="eventDateTime">
+                                </div>
 
 
 
+
+                            </div>
+                            <div class="col-lg-2 col-md-5 col-sm-12">
+                                <h3 class="my-3">Status</h3>
+                                <div class="mb-3">
+                                    <input type="checkbox" class="btn-check" id="Open" autocomplete="off"
+                                        onclick="toggleButton('OpenLabel')" name="status" value="Open">
+                                    <label class="m-1 btn w-100 filterButtons fontSize1VW" for="Open"
+                                        id="OpenLabel">Open</label>
+                                    <input type="checkbox" class="btn-check" id="Inactive" autocomplete="off"
+                                        onclick="toggleButton('InactiveLabel')" name="status" value="Inactive">
+                                    <label class="m-1 btn w-100 filterButtons fontSize1VW" for="Inactive"
+                                        id="InactiveLabel">Inactive</label>
+                                    <input type="checkbox" class="btn-check" id="SoldOut" autocomplete="off"
+                                        onclick="toggleButton('SoldOutLabel')" name="status" value="SoldOut">
+                                    <label class="m-1 btn w-100 filterButtons fontSize1VW" for="SoldOut"
+                                        id="SoldOutLabel">Sold Out</label>
+                                    <input type="checkbox" class="btn-check" id="Cancelled" autocomplete="off"
+                                        onclick="toggleButton('CancelledLabel')" name="status" value="Cancelled">
+                                    <label class="m-1 btn w-100 filterButtons fontSize1VW" for="Cancelled"
+                                        id="CancelledLabel">Cancelled</label>
+                                </div>
+
+                            </div>
                         </div>
-                        <div class="col-lg-2 col-md-5 col-sm-12">
-                            <h3 class="my-3">Status</h3>
-                            <div class="mb-3">
-                                <input type="checkbox" class="btn-check" id="Open" autocomplete="off"
-                                    onclick="toggleButton('OpenLabel')">
-                                <label class="m-1 btn w-100 filterButtons fontSize1VW" for="Open"
-                                    id="OpenLabel">Open</label>
-                                <input type="checkbox" class="btn-check" id="Inactive" autocomplete="off"
-                                    onclick="toggleButton('InactiveLabel')">
-                                <label class="m-1 btn w-100 filterButtons fontSize1VW" for="Inactive"
-                                    id="InactiveLabel">Inactive</label>
-                                <input type="checkbox" class="btn-check" id="SoldOut" autocomplete="off"
-                                    onclick="toggleButton('SoldOutLabel')">
-                                <label class="m-1 btn w-100 filterButtons fontSize1VW" for="SoldOut"
-                                    id="SoldOutLabel">Sold Out</label>
-                                <input type="checkbox" class="btn-check" id="Cancelled" autocomplete="off"
-                                    onclick="toggleButton('CancelledLabel')">
-                                <label class="m-1 btn w-100 filterButtons fontSize1VW" for="Cancelled"
-                                    id="CancelledLabel">Cancelled</label>
+                    </div>
+                    <button type="submit" class="btn fontSize2VW buttonGreenBg text-light">Apply</button>
+
+
+
+
+
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="container text-light">
+        <div class="row">
+
+            {% for event in events %}
+            <div class="col-xl-4 col-lg-6 col-sm-12">
+                <div class="m-2 mb-5">
+                    <div class="m-2">
+                        <div class="m-2 text-center text-md-start">
+                            <h4>{{event.dateTime.strftime('%d/%m/%Y')}}
+
+                                {% if event.status.value == 'Open' %}
+                                <span class="badge bg-success">{{event.status.value}}</span>
+                            </h4>
+                            {% elif event.status.value == 'Cancelled' %}
+                            <span class="badge bg-danger">{{event.status.value}}</span></h4>
+                            {% elif event.status.value == 'SoldOut' %}
+                            <span class="badge bg-warning text-dark">Sold Out</span></h4>
+                            {% else %}
+                            <span class="badge bg-secondary">{{event.status.value}}</span></h4>
+                            {% endif %}
+                            <img class="img-fluid rounded eventImgHomePage"
+                                src="{{ url_for('static',filename='image/beautyOfBach.jpg') }}"
+                                alt="Beauty Of Bach Photo">
+                            <!-- https://unsplash.com/photos/EcZP9kG8NMc -->
+                            <h1 class="display-5">{{event.eventName}}</h1>
+                        </div>
+
+                        <div class="row m-2 text-center text-md-start">
+                            <div class="col-12 col-md-6">
+                                <h5>{{event.suburb}} - {{event.state}}</h5>
+                                <h6>{{event.genres}}</h6>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <button class="btn btn-lg buttonGreenBg w-100"
+                                    onclick="location.href='/details/{{event.eventID}}'">Details</button>
                             </div>
 
                         </div>
                     </div>
                 </div>
-                <button type="button" class="btn fontSize2VW buttonGreenBg text-light">Apply</button>
-
-
             </div>
+            {% endfor %}
+
+
+            <!-- <div class="col-12 text-center">
+                <button class="btn btn-lg buttonGreenBg mb-5 fontSize2VW">Load more</button>
+            </div> -->
+
         </div>
     </div>
-</div>
-<div class="container text-light">
-    <div class="row">
-
-        {% for event in events %}
-        <div class="col-xl-4 col-lg-6 col-sm-12">
-            <div class="m-2 mb-5">
-                <div class="m-2">
-                    <div class="m-2 text-center text-md-start">
-                        <h4>{{event.dateTime}} <span class="badge bg-success">{{event.status.value}}</span></h4>
-                        <img class="img-fluid rounded eventImgHomePage" src="{{ url_for('static',filename='image/beautyOfBach.jpg') }}"
-                            alt="Beauty Of Bach Photo">
-                        <!-- https://unsplash.com/photos/EcZP9kG8NMc -->
-                        <h1 class="display-5">{{event.eventName}}</h1>
-                    </div>
-
-                    <div class="row m-2 text-center text-md-start">
-                        <div class="col-12 col-md-6">
-                            <h5>{{event.location}}</h5>
-                            <h6>{{event.genres}}</h6>
-                        </div>
-
-                        <div class="col-12 col-md-6">
-                            <button class="btn btn-lg buttonGreenBg w-100"
-                                onclick="location.href='/details/{{event.eventID}}'">Details</button>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-
-
-        <div class="col-12 text-center">
-            <button class="btn btn-lg buttonGreenBg mb-5 fontSize2VW">Load more</button>
-        </div>
-
-    </div>
-</div>
-{% endblock %}
+    {% endblock %}
