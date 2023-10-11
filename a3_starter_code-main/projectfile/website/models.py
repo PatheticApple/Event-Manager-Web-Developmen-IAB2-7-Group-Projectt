@@ -1,5 +1,5 @@
 from . import db
-from datetime import datetime
+from datetime import datetime, date
 import enum
 from sqlalchemy import Enum
 
@@ -32,8 +32,9 @@ class Event(db.Model):
     __tablename__ = 'events'
     eventID = db.Column(db.Integer, primary_key=True)
     eventName = db.Column(db.String(100), index=True, nullable=False)
-    location = db.Column(db.String(100), index=True, nullable=False)
-    dateTime = db.Column(db.DateTime, nullable=False, default=datetime.now())
+    suburb = db.Column(db.String(100), index=True, nullable=False)
+    state = db.Column(db.String(100), index=True, nullable=False)
+    dateTime = db.Column(db.Date, nullable=False, default=date)
     genres = db.Column(db.String(100), nullable=False)
     status = db.Column(db.Enum(EventStatusEnum), nullable=False)
     # foreign keys
@@ -116,7 +117,7 @@ class Booking(db.Model):
 class Comment(db.Model):
     __tablename__ = 'comments'
     commentID = db.Column(db.Integer, primary_key=True)
-    post_date = db.Column(db.DateTime, nullable=False , default=datetime.now())
+    post_date = db.Column(db.Date, nullable=False , default=datetime.now())
     commentContent = db.Column(db.String(500), nullable=False)
     ratingValue = db.Column(db.Integer, nullable=False)
 
