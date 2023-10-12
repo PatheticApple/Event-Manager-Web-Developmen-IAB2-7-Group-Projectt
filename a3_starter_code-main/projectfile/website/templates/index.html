@@ -152,9 +152,45 @@
                             {% else %}
                             <span class="badge bg-secondary">{{event.status.value}}</span></h4>
                             {% endif %}
-                            <img class="img-fluid rounded eventImgHomePage"
-                                src="{{ url_for('static',filename='image/beautyOfBach.jpg') }}"
-                                alt="Beauty Of Bach Photo">
+                            <div class="container text-light">
+                                <div class="row">
+                                    <!-- Loop for Even Images -->
+                                    {% for event in events %}
+                                    <div class="col-xl-4 col-lg-6 col-sm-12">
+                                        <div class="m-2 mb-5">
+                                            <div class="m-2">
+                                                <div class="m-2 text-center text-md-start">
+                                                    <h4>{{event.dateTime}} <span class="badge bg-success">{{event.status.value}}</span></h4>
+                                                    <img class="img-fluid rounded eventImgHomePage" src="{{ url_for('static',filename=event.imagePath) }}"
+                                                        alt="Event Image">
+                                                    <!-- https://unsplash.com/photos/EcZP9kG8NMc -->
+                                                    <h1 class="display-5">{{event.eventName}}</h1>
+                                                </div>
+                            
+                                                <div class="row m-2 text-center text-md-start">
+                                                    <div class="col-12 col-md-6">
+                                                        <h5>{{event.location}}</h5>
+                                                        <h6>{{event.genres}}</h6>
+                                                    </div>
+                            
+                                                    <div class="col-12 col-md-6">
+                                                        <button class="btn btn-lg buttonGreenBg w-100"
+                                                            onclick="location.href='/details/{{event.eventID}}'">Details</button>
+                                                    </div>
+                            
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                            
+                            
+                                    <div class="col-12 text-center">
+                                        <button class="btn btn-lg buttonGreenBg mb-5 fontSize2VW">Load more</button>
+                                    </div>
+                            
+                                </div>
+                            </div>
                             <!-- https://unsplash.com/photos/EcZP9kG8NMc -->
                             <h1 class="display-5">{{event.eventName}}</h1>
                         </div>

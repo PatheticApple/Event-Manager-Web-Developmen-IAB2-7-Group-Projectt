@@ -18,6 +18,7 @@ class User(db.Model):
     firstName = db.Column(db.String(100), nullable=False)
     lastName = db.Column(db.String(100), nullable=False)
     mobileNo = db.Column(db.String(10), nullable=False)
+    
 
     # relations
     eventCreated = db.relationship('Event', backref='user')
@@ -37,6 +38,7 @@ class Event(db.Model):
     dateTime = db.Column(db.Date, nullable=False, default=date)
     genres = db.Column(db.String(100), nullable=False)
     status = db.Column(db.Enum(EventStatusEnum), nullable=False)
+    imagePath = db.Column(db.String(200), nullable=False)
     # foreign keys
     userID = db.Column(db.Integer, db.ForeignKey('users.userID'))
     
