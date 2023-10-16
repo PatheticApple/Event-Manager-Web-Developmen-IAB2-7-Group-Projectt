@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div id="formBox">
+    <div id="registerForm">
+        <div class="col">
+            <div class="col-12 col-md-6">
+            <form>
+                <div>
+                    <h2>Sign Up</h2>
+                </div>
+            </form>
+            </div>
+            <p>Personal Info</p>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <form>
+                        <div>
+                            <input type="text" placeholder="First name...">
+                        </div>
+                    </form>
+                </div>
+                <div class="col-12 col-md-6">
+                    <form>
+                        <div>
+                            <input type="text" placeholder="Last name...">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <p>Contact Info</p>
+            <div class="col-12 col-md-6">
+            <form>
+                <div>
+                    <input type="email" class="form-control form-control-lg" id="eventNameInput"
+                        aria-describedby="eventNameInput" placeholder="Email...">
+                </div>
+            </form>
+            </div>
+            <p>Password</p>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <form>
+                        <div>
+                            <input type="password" class="form-control form-control-lg" id="addressInput"
+                                aria-describedby="addressInput" placeholder="Password...">
+                        </div>
+                    </form>
+                </div>
+                <div class="col-12 col-md-6">
+                    <form>
+                        <div>
+                            <input type="password" class="form-control form-control-lg" id="addressInput"
+                                aria-describedby="addressInput" placeholder="Confirm Password...">
+                                <div class="submitButton">
+                                    <input type="submit" style="float: right;">
+                                </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            </form>
+            </div>
+    </div>
+</div>
+
+{% endblock %}
