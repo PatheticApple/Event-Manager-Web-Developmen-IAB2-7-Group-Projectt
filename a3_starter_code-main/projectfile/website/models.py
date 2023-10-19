@@ -2,6 +2,7 @@ from . import db
 from datetime import datetime, date
 import enum
 from sqlalchemy import Enum
+from flask_login import UserMixin
 
 class EventStatusEnum(enum.Enum):
     Open = 'Open'
@@ -10,7 +11,7 @@ class EventStatusEnum(enum.Enum):
     Cancelled = 'Cancelled'
 
 
-class User(db.Model):
+class User(db.Model, UserMixin ):
     __tablename__ = 'users'
     userID = db.Column(db.Integer, primary_key=True)
     email_address = db.Column(db.String(100), index=True, unique=True, nullable=False)

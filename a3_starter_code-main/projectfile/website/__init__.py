@@ -23,23 +23,28 @@ def create_app():
     # bootstrap = Bootstrap5(app)
     
     #initialize the login manager
-    # login_manager = LoginManager()
+    login_manager = LoginManager()
+    login_manager.login_view = 'auth.login'
+    login_manager.init_app(app)
     
     #set the name of the login function that lets user login
     # in our case it is auth.login (blueprintname.viewfunction name)
     # login_manager.login_view='auth.login'
     # login_manager.init_app(app)
 
-    #create a user loader function takes userid and returns User
-    #from .models import User  # importing here to avoid circular references
-    #@login_manager.user_loader
-    #def load_user(user_id):
-    #    return User.query.get(int(user_id))
+    # create a user loader function takes userid and returns User
+    from .models import User  # importing here to avoid circular references
+    @login_manager.user_loader
+    def load_user(user_id):
+       return User.query.get(int(user_id))
 
     #importing views module here to avoid circular references
     # a common practice.
     from . import views
     app.register_blueprint(views.bp)
+
+    from . import auth
+    app.register_blueprint(auth.authbp)
 
     from . import bookings
     app.register_blueprint(bookings.bookbp)
