@@ -16,20 +16,20 @@ def register():
     if (register.validate_on_submit()==True):
             print("you have successfully registered")
             #get username, password and email from the form
-            fname = register.first_name
-            lname = register.last_name
-            pnumber = register.phone_number
-            pwd = register.password.data
-            email = register.email_id.data
+            fname2 = register.first_name.data
+            lname2 = register.last_name.data
+            pnumber2 = register.phone_number.data
+            pwd2 = register.password.data
+            email2 = register.email_id.data
             #check if a user exists
-            user = db.session.scalar(db.select(User).where(User.email_address==email))
+            user = db.session.scalar(db.select(User).where(User.email_address==email2))
             if user:#this returns true when user is not None
                 flash('email already in use, please try another')
                 return redirect(url_for('auth.register'))
             # don't store the password in plaintext!
-            pwd_hash = generate_password_hash(pwd)
+            pwd_hash = generate_password_hash(pwd2)
             #create a new User model object
-            new_user = User(first_name=fname, last_name=lname, phone_number=pnumber, password_hash=pwd_hash, emailid=email)
+            new_user = User(firstName=fname2, lastName=lname2, mobileNo=pnumber2, password_hash=pwd_hash, email_address=email2)
             db.session.add(new_user)
             db.session.commit()
             #commit to the database and redirect to HTML page
