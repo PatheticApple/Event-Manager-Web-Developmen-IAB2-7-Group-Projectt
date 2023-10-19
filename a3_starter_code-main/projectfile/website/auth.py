@@ -14,6 +14,7 @@ def register():
     register = RegisterForm()
     #the validation of form is fine, HTTP request is POST
     if (register.validate_on_submit()==True):
+            print("you have successfully registered")
             #get username, password and email from the form
             fname = register.first_name
             lname = register.last_name
@@ -21,9 +22,9 @@ def register():
             pwd = register.password.data
             email = register.email_id.data
             #check if a user exists
-            user = db.session.scalar(db.select(User).where(User.name==fname))
+            user = db.session.scalar(db.select(User).where(User.email_address==email))
             if user:#this returns true when user is not None
-                flash('Username already exists, please try another')
+                flash('email already in use, please try another')
                 return redirect(url_for('auth.register'))
             # don't store the password in plaintext!
             pwd_hash = generate_password_hash(pwd)
@@ -43,12 +44,12 @@ def login():
     error = None
     if(login_form.validate_on_submit()==True):
         #get the username and password from the database
-        user_name = login_form.user_name.data
+        email = login_form.email.data
         password = login_form.password.data
-        user = db.session.scalar(db.select(User).where(User.name==user_name))
+        user = db.session.scalar(db.select(User).where(User.email_address==email))
         #if there is no user with that name
         if user is None:
-            error = 'Incorrect username'#could be a security risk to give this much info away
+            error = 'Invalid Credentials'#could be a security risk to give this much info away
         #check the password - notice password hash function
         elif not check_password_hash(user.password_hash, password): # takes the hash and password
             error = 'Incorrect password'

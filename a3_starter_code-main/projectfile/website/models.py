@@ -11,7 +11,7 @@ class EventStatusEnum(enum.Enum):
     Cancelled = 'Cancelled'
 
 
-class User(db.Model, UserMixin ):
+class User(db.Model, UserMixin):
     __tablename__ = 'users'
     userID = db.Column(db.Integer, primary_key=True)
     email_address = db.Column(db.String(100), index=True, unique=True, nullable=False)
@@ -19,7 +19,8 @@ class User(db.Model, UserMixin ):
     firstName = db.Column(db.String(100), nullable=False)
     lastName = db.Column(db.String(100), nullable=False)
     mobileNo = db.Column(db.String(10), nullable=False)
-    
+    def get_id(self):
+           return (self.userID)
 
     # relations
     eventCreated = db.relationship('Event', backref='user')

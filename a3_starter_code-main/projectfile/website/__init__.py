@@ -17,6 +17,7 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///eventManagement.sqlite'
     #initialise db with flask app
     db.init_app(app)
+    Bootstrap5(app)
 
     
     
@@ -43,9 +44,6 @@ def create_app():
     from . import views
     app.register_blueprint(views.bp)
 
-    from . import auth
-    app.register_blueprint(auth.authbp)
-
     from . import bookings
     app.register_blueprint(bookings.bookbp)
 
@@ -54,8 +52,9 @@ def create_app():
 
     from . import eventDetails
     app.register_blueprint(eventDetails.detailsbp)
-    # from . import auth
-    # app.register_blueprint(auth.bp)
+
+    from . import auth
+    app.register_blueprint(auth.authbp)
     
     from . import register
     app.register_blueprint(register.registerbp)
