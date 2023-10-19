@@ -17,24 +17,27 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///eventManagement.sqlite'
     #initialise db with flask app
     db.init_app(app)
+    Bootstrap5(app)
 
     
     
     # bootstrap = Bootstrap5(app)
     
     #initialize the login manager
-    # login_manager = LoginManager()
+    login_manager = LoginManager()
+    login_manager.login_view = 'auth.login'
+    login_manager.init_app(app)
     
     #set the name of the login function that lets user login
     # in our case it is auth.login (blueprintname.viewfunction name)
     # login_manager.login_view='auth.login'
     # login_manager.init_app(app)
 
-    #create a user loader function takes userid and returns User
-    #from .models import User  # importing here to avoid circular references
-    #@login_manager.user_loader
-    #def load_user(user_id):
-    #    return User.query.get(int(user_id))
+    # create a user loader function takes userid and returns User
+    from .models import User  # importing here to avoid circular references
+    @login_manager.user_loader
+    def load_user(user_id):
+       return User.query.get(int(user_id))
 
     #importing views module here to avoid circular references
     # a common practice.
@@ -49,8 +52,9 @@ def create_app():
 
     from . import eventDetails
     app.register_blueprint(eventDetails.detailsbp)
-    # from . import auth
-    # app.register_blueprint(auth.bp)
+
+    from . import auth
+    app.register_blueprint(auth.authbp)
     
     from . import register
     app.register_blueprint(register.registerbp)
