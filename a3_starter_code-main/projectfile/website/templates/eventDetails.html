@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% from 'bootstrap5/form.html' import render_form %}
 {% block content %}
    <div class="container-fluid" id="eventDetailsHeader">
       <img class="w-100" src="{{ url_for('static',filename=event.imagePath) }}" alt="Melody Master Photo"> 
@@ -83,27 +83,41 @@
          <hr>
          <div class="p-2">
             <h1 class="display-3 mb-5 text-center text-md-start">Reviews</h1>
-            <p>Share your experience here!</p>
-            <textarea class="form-control mb-2" id="seatConfiguring" rows="3"></textarea>
-            <button class="btn btn-lg buttonGreenBg mb-5 fontSize1VW">Post A Review</button>
+            <!-- <form method="POST" class="form" action="/details/{{event.eventID}}/comment">
+               <div class="form-group">
+                   {{ form.text.label(class="form-label") }}
+                   {{ form.text(class="form-control mb-2") }}
+               </div>
+               <div class="form-group">
+                  {{ form.rating.label(class="form-label") }}
+                  {{ form.rating(class="form-control", type="range", min=1, max=5, step=1) }}
+               </div>
+               <div class="form-group mt-3">
+                  {{ form.submit(class="btn btn-primary") }}
+                </div>
+           </form> -->
+
+           <p>Share your experience here!</p>
+           <form method="POST" action="/details/{{event.eventID}}/comment">
+            <div class="form-group">
+                <textarea class="form-control mb-2" id="comment_content" name="comment_content" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="rating_value">Rating</label>
+                <input type="range" class="form-control mb-2" id="rating_value" name="rating_value" min="1" max="5" required>
+            </div>
+            <button type="submit" class="btn btn-lg buttonGreenBg mb-5 fontSize1VW">Post A Review</button>
+        </form>
+
+            <!-- {{ render_form(form,"/details/{0}/comment".format(event.eventID)) }} -->
+
+            {% for comment in event.comments %}
+
             <div class="mb-5">
-               <h3>Gary Nguyen - 18th August 2023 - <span class="badge detailsButton">4/5</span></h3>
-               <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                  industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-                  scrambled it to make a type specimen book. </p>
+               <h3>{{ comment.user.firstName }} - {{ comment.post_date.strftime('%d/%m/%Y')}} - <span class="badge detailsButton">{{ comment.ratingValue }}/5</span></h3>
+               <p>{{ comment.commentContent }}</p>
             </div>
-            <div class="mb-5">
-               <h3>Gary Nguyen - 18th August 2023 - <span class="badge detailsButton">4/5</span></h3>
-               <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                  industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-                  scrambled it to make a type specimen book. </p>
-            </div>
-            <div class="pb-5">
-               <h3>Gary Nguyen - 18th August 2023 - <span class="badge detailsButton">4/5</span></h3>
-               <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                  industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-                  scrambled it to make a type specimen book. </p>
-            </div>
+            {% endfor %} 
          </div>
 
 

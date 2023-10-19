@@ -1,7 +1,7 @@
 
 from flask_wtf import FlaskForm
-from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField
-from wtforms.validators import InputRequired, Length, Email, EqualTo
+from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, IntegerField
+from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange
 
 
 #creates the login information
@@ -23,3 +23,11 @@ class RegisterForm(FlaskForm):
 
     #submit button
     submit = SubmitField("Register")
+
+
+
+# Comment forms
+class CommentForm(FlaskForm):
+  text = TextAreaField('Share your experience here!', [InputRequired()])
+  rating = IntegerField('Please give a rating out of 5', validators=[NumberRange(min=1, max=5, message="Please select a rating between 1 and 5")])
+  submit = SubmitField('Post a review')
