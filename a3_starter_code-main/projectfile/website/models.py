@@ -47,7 +47,7 @@ class Event(db.Model):
 
     # relations
     # eventStatus = db.relationship('EventStatus', backref='event')
-    eventDetail = db.relationship('EventDetail', backref='event')
+    eventDetail = db.relationship('EventDetail', backref='event', uselist=False)
     ticketType = db.relationship('TicketType', backref='event')
     bookings = db.relationship('Booking', backref='event')
     comments = db.relationship('Comment', backref='event')

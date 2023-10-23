@@ -19,7 +19,8 @@
 
                 <!-- Logo -->
                 <a href="/" class="navbar-brand">
-                    <img id="companyLogo" src="{{ url_for('static',filename='image/logo.png') }}" class="rounded float-left img-fluid" alt="Company Logo">
+                    <img id="companyLogo" src="{{ url_for('static',filename='image/logo.png') }}"
+                        class="rounded float-left img-fluid" alt="Company Logo">
                 </a>
 
                 <button class="navbar-toggler bg-secondary" type="button" data-bs-toggle="collapse"
@@ -37,28 +38,28 @@
                         {% if current_user.is_authenticated %}
                         <a class="nav-item nav-link disabled text-muted" href="#">Welcome {{current_user.firstName}}</a>
                         <a id="LoginButton" class="nav-item nav-link buttonGreenBg rounded text-light mx-3"
-                        href="{{ url_for('auth.logout') }}">Logout</a>
-                            {% else %}
+                            href="{{ url_for('auth.logout') }}">Logout</a>
+                        {% else %}
                         <a id="LoginButton" class="nav-item nav-link buttonGreenBg rounded text-light mx-3"
                             href="{{ url_for('auth.login') }}">Login</a>
                         <a id="LoginButton" class="nav-item nav-link buttonGreenBg rounded text-light mx-3"
                             href="{{ url_for('auth.register') }}">Register</a>
                         {% endif %}
 
-                         
 
-                        
+
+
                     </div>
                 </div>
             </div>
         </nav>
     </header>
 
-        
 
-        {% block content %}
 
-        {% endblock %}
+    {% block content %}
+
+    {% endblock %}
 
     </div>
     <!-- footer -->
@@ -72,6 +73,8 @@
         crossorigin="anonymous"></script>
 
     <script>
+
+        ticketTypeNo = 0;
         function toggleButton(id) {
             if (document.getElementById(id).style.backgroundColor != 'rgb(0, 159, 133)') {
                 document.getElementById(id).style.backgroundColor = 'rgb(0, 159, 133)';
@@ -82,7 +85,54 @@
             }
 
         }
+
+        function addCustomTicket() {
+
+            ticketTypeNo++;
+            // <div id="custom-tickets-container" class="col-12 col-md-6">
+                     
+            //         </div>
+            var container1 = document.getElementById('ticketArea');
+
+            var container = document.createElement('div');
+            container.id = "custom-tickets-container";
+            container.className = "col-12 col-md-6 col-lg-4";
+            container1.appendChild(container);
+
+            var ticketLabel = document.createElement('label');
+            ticketLabel.textContent = "Ticket Type " + ticketTypeNo;
+            ticketLabel.className = "form-label label-large mt-3";
+            container.appendChild(ticketLabel);
+
+
+            // <input class="form-control form-control-lg mb-2" type="text" id="ticketNameInput">
+            var ticketNameInput = document.createElement('input');
+            ticketNameInput.type = 'text';
+            ticketNameInput.name = 'custom_ticket_names[]';
+            ticketNameInput.placeholder = 'Ticket Name';
+            ticketNameInput.className = "form-control form-control-lg my-2";
+            container.appendChild(ticketNameInput);
+
+            // <input class="form-control form-control-lg mb-2" type="text" id="ticketNameInput">
+            var ticketPriceInput = document.createElement('input');
+            ticketPriceInput.type = 'number';
+            ticketPriceInput.step = '0.01';
+            ticketPriceInput.name = 'custom_ticket_prices[]';
+            ticketPriceInput.placeholder = 'Ticket Price';
+            ticketPriceInput.className = "form-control form-control-lg mb-2";
+            container.appendChild(ticketPriceInput);
+
+            var ticketQuantityInput = document.createElement('input');
+            ticketQuantityInput.type = 'number';
+            ticketQuantityInput.name = 'custom_ticket_quantities[]';
+            ticketQuantityInput.placeholder = 'Number of Tickets';
+            ticketQuantityInput.className = "form-control form-control-lg mb-2";
+            container.appendChild(ticketQuantityInput);
+
+            container.appendChild(document.createElement('br'));  // Add line break
+        }
     </script>
+
 
 
 

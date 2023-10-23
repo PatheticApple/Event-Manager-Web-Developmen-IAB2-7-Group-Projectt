@@ -1,7 +1,9 @@
 
 from flask_wtf import FlaskForm
-from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, IntegerField
+from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, IntegerField, DateField, TimeField
 from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange
+from flask_wtf.file import FileRequired, FileField, FileAllowed
+ALLOWED_FILE = {'PNG','JPG','png','jpg'}
 
 
 #creates the login information
@@ -31,3 +33,14 @@ class CommentForm(FlaskForm):
   text = TextAreaField('Share your experience here!', [InputRequired()])
   rating = IntegerField('Please give a rating out of 5', validators=[NumberRange(min=1, max=5, message="Please select a rating between 1 and 5")])
   submit = SubmitField('Post a review')
+
+
+class CreateEventForm(FlaskForm):
+   eventName = TextAreaField('Your Event Name', [InputRequired()])
+   suburb = TextAreaField('Suburb', [InputRequired()])
+   state = TextAreaField('State', [InputRequired()])
+   date = DateField('Date', [InputRequired()], format='%Y-%m-%d')
+   time = TimeField('Time', [InputRequired()], format='%H:%M')
+   image = FileField('Destination Image', validators=[
+    FileRequired(message = 'Image cannot be empty'),
+    FileAllowed(ALLOWED_FILE, message='Only supports png, jpg, JPG, PNG')])
