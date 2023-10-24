@@ -66,6 +66,13 @@ def create_app():
     # inbuilt function which takes error as parameter 
     def not_found(e): 
         return render_template("error.html")
+    
+
+     #config upload folder
+    UPLOAD_FOLDER = '/static/image'
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+    
     return app
 
 
