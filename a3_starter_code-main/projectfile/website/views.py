@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from .models import User, Event, EventDetail, Booking, Comment, TicketType
 from datetime import datetime
 
@@ -30,18 +30,21 @@ def search():
             events = events.filter(Event.status.in_(statuses))
 
         if state:
-            if (state == "tasmania" or state == "Tasmania"):
+            if (state == "tasmania" or state == "Tasmania" or state == "TAS" or state == "tas"):
                 state = "TAS"
-            if (state == "queensland" or state == "Queensland"):
+            elif (state == "queensland" or state == "Queensland" or state == "QLD") or state == "qld":
                 state = "QLD"
-            if (state == "new south wales" or state == "New South Wales"):
+            elif (state == "new south wales" or state == "New South Wales" or state == "NSW" or state == "nsw"):
                 state = "NSW"
-            if (state == "victoria" or state == "Victoria"):
+            elif (state == "victoria" or state == "Victoria" or state == "VIC" or state == "vic"):
                 state = "VIC"
-            if (state == "south australia" or state == "South Australia"):
+            elif (state == "south australia" or state == "South Australia" or state == "SA" or state == "sa"):
                 state = "SA"
-            if (state == "western australia" or state == "Western Australia"):
+            elif (state == "western australia" or state == "Western Australia" or state == "WA" or state == "wa"):
                 state = "WA"
+            else:
+                flash("incorrect state filter entered", "error")
+                return redirect(url_for("main.index"))
             events = events.filter(Event.state.ilike(f"%{state}%"))
 
         if suburb:
@@ -63,14 +66,19 @@ def search():
                 events = events.filter(Event.dateTime == date)
             except ValueError:
                 # Handle invalid date format if needed
-                pass
+                flash("incorrect date filter format", "error")
+                return redirect(url_for("main.index"))
         # if search_query:
         #     events = events.filter(Event.name.ilike(f"%{search_query}%"))
 
         events = events.all()
-
-        return render_template('index.html', events=events, genres = genres)
+        if len(events) == 0:
+            flash("No Search Results Found :(", "message")
+            return render_template('index.html', events=events, genres = genres)
+    
+        else:
+            return render_template('index.html', events=events, genres = genres)
     else:
-        return redirect(url_for('main.index'))
+        return redirect(url_for("main.index"))
     
         

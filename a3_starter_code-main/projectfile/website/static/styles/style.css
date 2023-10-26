@@ -332,3 +332,21 @@ body {
 #LoginButton {
     width: 120px
 }
+
+#errorBox {
+    text-align: center;
+    padding-top: 99px;
+    padding-bottom: 98px;
+    background-color: #050504;
+    background-image:  radial-gradient(#008a07 0.5px, transparent 0.5px), radial-gradient(#008a07 0.5px, transparent 0.5px);
+    background-size: 20px 20px;
+    background-position: 0 0,10px 10px;
+}
+
+#errorBox p, h1 {
+    color: white;
+}
+
+html {
+    background-color: black;
+}

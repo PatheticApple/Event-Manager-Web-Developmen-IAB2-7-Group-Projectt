@@ -52,10 +52,11 @@ def login():
             error = 'Invalid Credentials'#could be a security risk to give this much info away
         #check the password - notice password hash function
         elif not check_password_hash(user.password_hash, password): # takes the hash and password
-            error = 'Incorrect password'
+            error = 'Invalid Credentials'
         if error is None:
             #all good, set the login_user of flask_login to manage the user
             login_user(user)
+            flash("login successful", "info")
             return redirect(url_for('main.index'))
         else:
             flash(error)
@@ -65,4 +66,5 @@ def login():
 @login_required
 def logout():
     logout_user()
+    flash("Logout Successful", "info")
     return redirect(url_for('main.index'))
