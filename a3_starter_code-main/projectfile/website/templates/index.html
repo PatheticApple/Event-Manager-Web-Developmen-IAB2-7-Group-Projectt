@@ -1,31 +1,33 @@
 {% extends 'base.html' %}
-    
+
 
 {% block content %}
 
 <div class="container-fluid px-4 backgroundDarkNoGradient">
     {% with errors = get_flashed_messages(category_filter=["error"]) %}
-        {% if errors%}
-            {% for msg in errors %}
-            <div id="messageBox" style="border-style: solid; border-color: #f04d4d; background-color: #1a1a1a; border-radius: 5px;">
-                <div id="text" style="color: #f04d4d; text-align: center;">
-                    <p style="margin: 5px;">//: {{msg}}</p>
-                </div>
-            </div>
-            {% endfor %}
-        {% endif %}
+    {% if errors%}
+    {% for msg in errors %}
+    <div id="messageBox"
+        style="border-style: solid; border-color: #f04d4d; background-color: #1a1a1a; border-radius: 5px;">
+        <div id="text" style="color: #f04d4d; text-align: center;">
+            <p style="margin: 5px;">//: {{msg}}</p>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
     {% endwith %}
 
     {% with infos = get_flashed_messages(category_filter=["info"]) %}
-        {% if infos%}
-            {% for msg in infos %}
-            <div id="messageBox" style="border-style: solid; border-color: #61ff7e; background-color: #1a1a1a; border-radius: 5px;">
-                <div id="text" style="color: #61ff7e; text-align: center;">
-                    <p style="margin: 5px;">//: {{msg}}</p>
-                </div>
-            </div>
-            {% endfor %}
-        {% endif %}
+    {% if infos%}
+    {% for msg in infos %}
+    <div id="messageBox"
+        style="border-style: solid; border-color: #61ff7e; background-color: #1a1a1a; border-radius: 5px;">
+        <div id="text" style="color: #61ff7e; text-align: center;">
+            <p style="margin: 5px;">//: {{msg}}</p>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
     {% endwith %}
     <div class="row text-light" id="browseAndCreateEventHere">
         <div id="browseEventHere" class="p-5 col-12 col-lg-6 col-md-12 text-center text-md-start">
@@ -80,7 +82,7 @@
                             <div class="col-lg-3 col-md-7 col-sm-12" id="GenresCheckBoxes">
                                 <h3 class="my-3">Genres</h3>
                                 <div class="text-left mb-3">
-                                    
+
                                     <input type="checkbox" class="btn-check" id="1" onclick="toggleButton('EDM')"
                                         autocomplete="off" name="genre" value="EDM">
                                     <label class="m-1 btn text-light filterButtons" for="1" id="EDM">EDM</label>
@@ -147,7 +149,7 @@
                         </div>
                     </div>
                     <button type="submit" class="btn fontSize2VW buttonGreenBg text-light">Apply</button>
-                    
+
 
 
 
@@ -157,17 +159,17 @@
             </div>
         </form>
         {% with messages = get_flashed_messages(category_filter=["message"]) %}
-            {% if messages%}
-                {% for msg in messages %}
-                    <p style="text-align: center; color: white; font-size: 30px;">{{msg}}</p>
-                {% endfor %}
-            {% endif %}
+        {% if messages%}
+        {% for msg in messages %}
+        <p style="text-align: center; color: white; font-size: 30px;">{{msg}}</p>
+        {% endfor %}
+        {% endif %}
         {% endwith %}
     </div>
     <div class="container text-light">
         <div class="row">
 
-            
+
 
             {% for event in events %}
             <div class="col-xl-4 col-lg-6 col-sm-12">
@@ -187,8 +189,7 @@
                             <span class="badge bg-secondary">{{event.status.value}}</span></h4>
                             {% endif %}
                             <img class="img-fluid rounded eventImgHomePage"
-                                src="{{ url_for('static',filename=event.imagePath) }}"
-                                alt="Beauty Of Bach Photo">
+                                src="{{ url_for('static',filename=event.imagePath) }}" alt="Beauty Of Bach Photo">
                             <!-- https://unsplash.com/photos/EcZP9kG8NMc -->
                             <h1 class="display-5">{{event.eventName}}</h1>
                         </div>
@@ -212,7 +213,7 @@
 
 
 
-        
+
 
 
             <!-- <div class="col-12 text-center">

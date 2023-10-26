@@ -94,7 +94,8 @@ class TicketType(db.Model):
     eventID = db.Column(db.Integer, db.ForeignKey('events.eventID'))
 
     # relations
-    # comments = db.relationship('Booking', backref='ticketType')
+    ticketName = db.relationship('Booking', backref='ticket')
+    ticketName2 = db.relationship('Event', backref='ticket')
 
     def __repr__(self):
         return f"Event's Ticket: {self.ticketType}"
@@ -112,6 +113,8 @@ class Booking(db.Model):
     userID = db.Column(db.Integer, db.ForeignKey('users.userID'))
     eventID = db.Column(db.Integer, db.ForeignKey('events.eventID'))
     ticketID = db.Column(db.Integer, db.ForeignKey('ticketTypes.ticketID'))
+
+
 
 
     def __repr__(self):

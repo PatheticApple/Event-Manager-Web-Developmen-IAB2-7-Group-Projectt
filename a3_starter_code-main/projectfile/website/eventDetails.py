@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
-from .models import Event, EventDetail, TicketType, Comment
+from .models import Event, EventDetail, TicketType, Comment, Booking
 from .forms import CommentForm
 from . import db
 
@@ -19,9 +19,42 @@ def show(id):
     ticketDetails = db.session.query(TicketType).filter(TicketType.eventID == id).all()
     cform = CommentForm() 
     # print(tickets)
-    return render_template('eventDetails.html', event=event, eventDetails= eventDetails, ticketDetails= ticketDetails, form = cform)
+    return render_template('eventDetails.html', event=event, eventDetails= eventDetails, ticketDetails= ticketDetails, form = cform, userID = current_user)
 
 
+@detailsbp.route('/<id>/book', methods = ['GET', 'POST'])
+@login_required
+def book(id):
+    ticketID = request.form['ticket_type']
+    quantity = int(request.form['quantity'])
+    eventDetails = db.session.scalar(db.select(EventDetail).where(EventDetail.eventID==id))
+    ticketDetails = db.session.scalar(db.select(TicketType).where(TicketType.ticketID==ticketID))
+
+
+    print(ticketID)
+    print(quantity)
+    ticket_price = (TicketType.query.filter_by(ticketID=ticketID).first()).ticketPrice
+    print(ticket_price)
+
+    new_ticket = Booking(ticketType = ticketID, 
+                         NoOfTicket = quantity, 
+                         totalPrice = quantity * ticket_price, 
+                         user = current_user, 
+                         eventID = id, 
+                         ticketID = ticketID)
+    db.session.add(new_ticket)
+    eventDetails.availability -=quantity # ERROR HANDLING HERE PLEASEE
+    ticketDetails.ticketAvailability -=quantity # ERROR HANDLING HERE PLEASEE
+    db.session.commit()
+
+    # # Update the database with the booking information
+    # conn = sqlite3.connect('tickets.db')
+    # cursor = conn.cursor()
+    # cursor.execute('INSERT INTO bookings (ticket_type, quantity) VALUES (?, ?)', (ticket_type, quantity))
+    # conn.commit()
+    # conn.close()
+
+    return redirect(url_for('bookings.show'))
 
 @detailsbp.route('/<id>/comment', methods = ['GET', 'POST'])
 @login_required
