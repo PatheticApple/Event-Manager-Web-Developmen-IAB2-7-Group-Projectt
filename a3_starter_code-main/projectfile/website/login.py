@@ -21,7 +21,7 @@ def login():
         user = db.session.scalar(db.select(User).where(User.email_address==email))
         #if there is no user with that name
         if user is None:
-            error = 'Invalid Credentials'#could be a security risk to give this much info away
+            error = 'this is loginpy'#could be a security risk to give this much info away
         #check the password - notice password hash function
         elif not check_password_hash(user.password_hash, password): # takes the hash and password
             error = 'Incorrect password'
