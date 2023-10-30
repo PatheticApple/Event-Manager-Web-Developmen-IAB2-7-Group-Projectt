@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div  class="container-fluid backgroundDark">
+   <form method="post" enctype="multipart/form-data" action="{{ url_for('creator.update2', id = event.eventID)}}">
+      <div class="container text-light">
+         <h1 class="display-1 text-center py-5">Event Creator</h1>
+         <h1>Basic Information</h1>
+         <hr>
+         <div class="row">
+            <div class="col-12 col-md-6">
+               <!-- <form> -->
+               <div>
+                  <label for="eventNameInput" class="form-label label-large">Event Name</label>
+                  <input type="text" class="form-control form-control-lg" id="eventNameInput"
+                     aria-describedby="eventNameInput" name="event_name" value="{{event.eventName}}">
+               </div>
+               <!-- </form> -->
+            </div>
+            <div class="col-12 col-md-6">
+               <!-- <form> -->
+               <div>
+                  <div class="row">
+                     <div class="col-12 col-md-6 px-2">
+                        <label for="suburbInput" class="form-label label-large">Suburb</label>
+                        <input type="text" class="form-control form-control-lg" id="suburbInput"
+                           aria-describedby="suburbInput" name="suburb" value="{{event.suburb}}">
+                     </div>
+                     <div class="col-12 col-md-6 px-2">
+                        <label for="stateInput" class="form-label label-large">State</label>
+                        <select class="form-control form-control-lg" id="stateInput"
+                           aria-describedby="stateInput" name="state" required>
+                           <option selected disabled hidden>--Select--</option>
+                           <option>QLD</option>
+                           <option>NSW</option>
+                           <option>VIC</option>
+                           <option>TAS</option>
+                           <option>SA</option>
+                           <option>NT</option>
+                           <option>WA</option>
+                        </select>
+                     </div>
+                  </div>
+
+
+               </div>
+               <!-- </form> -->
+            </div>
+         </div>
+         <h1 class="mt-5">Date and Genres</h1>
+         <hr>
+         <div class="row h2off">
+            <div class="col-12 col-sm-6">
+               <label for="" class="form-label label-large">Dates</label>
+               <!-- <form action="/action_page.php"> -->
+               <!-- <label for="birthdaytime">Birthday (date and time):</label> -->
+               <input class="form-control form-control-lg" type="date" id="eventDateTime" name="date" value="{{event.dateTime}}">
+               <!-- <input type="submit"> -->
+               <!-- </form> -->
+
+               
+            </div>
+
+            <div class="col-12 col-sm-6">
+               <label for="" class="form-label label-large">Genres</label>
+               <!-- <form action="/action_page.php"> -->
+               <!-- <label for="birthdaytime">Birthday (date and time):</label> -->
+               <input class="form-control form-control-lg" type="text" id="eventDateTime" name="genres" value="{{event.genres}}">
+               <!-- <input type="submit"> -->
+               <!-- </form> -->
+            </div>
+         </div>
+
+         <h1 class="mt-5">Cover Images</h1>
+         <hr>
+         <div class="mb-5">
+            <h2>Cannot update images for now</h2>
+         </div>
+         
+         <h1 class="mt-5">Status</h1>
+         <hr>
+         <div class="mb-5">
+            <div class="input-group input-group-lg mb-3">
+               <!-- <label class="input-group-text p-3 buttonGreenBg" for="status">Status</label> -->
+               <select class="form-select" name="status" id="status">
+                  {% if event.status.value == 'Open' %}
+                  <option value="Open" selected="selected">Open</option>
+                  <option value="Inactive">Inactive</option>
+                  <option value="Cancelled">Cancelled</option>
+                  <option value="SoldOut">SoldOut</option>
+                  {% elif event.status.value == 'Inactive' %}
+                  <option value="Open" >Open</option>
+                  <option value="Inactive" selected="selected">Inactive</option>
+                  <option value="Cancelled">Cancelled</option>
+                  <option value="SoldOut">SoldOut</option>
+                  {% elif event.status.value == 'Cancelled' %}
+                  <option value="Open" >Open</option>
+                  <option value="Inactive" >Inactive</option>
+                  <option value="Cancelled" selected="selected">Cancelled</option>
+                  <option value="SoldOut">SoldOut</option>
+                  {% else %}
+                  <option value="Open">Open</option>
+                  <option value="Inactive" >Inactive</option>
+                  <option value="Cancelled" >Cancelled</option>
+                  <option value="SoldOut" selected="selected">SoldOut</option>
+                  {% endif %}
+               </select>
+            </div>
+         </div>
+
+         <div>
+            <div class="row">
+               <div class="col-md-12 d-flex">
+                  <h1>Advanced‎ ‎ </h1>
+                  <button class="btn btn-lg buttonGreenBg ml-auto" type="button" data-bs-toggle="collapse"
+                     data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                     Maximize
+                  </button>
+               </div>
+            </div>
+
+
+         </div>
+         <hr>
+         <div class="container collapse" id="collapseExample">
+            <div class="row">
+               <div class="col-12 col-md-6">
+                  <label for="artistInput" class="form-label label-large">Artist Name</label>
+                  <input type="text" class="form-control form-control-lg" id="stateInput" aria-describedby="artistInput"
+                     name="artist_name" value="{{eventDetails.artistName}}">
+
+                  <label for="formFile" class="form-label label-large">Artist Photo</label>
+                  <h2>Cannot update images for now</h2>
+
+                  <label for="capacityInput" class="form-label label-large">Capacity:</label>
+                  <input class="form-control form-control-lg mb-2" type="number" id="capacityInput" name="capacity"
+                  value="{{eventDetails.capacity}}">
+                  <!-- <form> -->
+                  <!-- <label for="ticketNameInput" class="form-label label-large">Ticket Name:</label>
+                  <input class="form-control form-control-lg mb-2" type="text" id="ticketNameInput">
+                  <div class="row">
+                     <div class="col-12 col-lg-6">
+                        <label for="priceInput" class="form-label label-large">Price:</label>
+                        <input type="text" class="form-control form-control-lg mb-2" id="priceInput">
+                     </div>
+                     <div class="col-12 col-lg-6">
+                        <label for="noTicketInput" class="form-label label-large">No of tickets:</label>
+                        <input type="text" class="form-control form-control-lg mb-2" id="noTicketInput">
+                     </div>
+                     <div class="text-center my-2">
+                        <button type="button" class="btn buttonGreenBg btn-lg px-3">Add Ticket Type</button>
+                     </div>
+                  </div> -->
+
+
+                 
+               </div>
+
+               <div class="col-12 col-md-6">
+                  <div class="form-group">
+                     <label for="Description" class="label-large">Description</label>
+                     <textarea class="form-control" id="Description" rows="10" name="description"> {{eventDetails.description}}</textarea>
+                  </div>
+               </div>
+            </div>
+            <div class="row" id="ticketArea">
+               <h1>Tickets - Cannot update the ticket types right now</h1>
+                  <hr>
+                  
+                  {% for ticket in event.ticket %}
+                     <h1>Ticket Type 1: {{ticket.ticketType}}</h1>
+                  {% endfor %}
+                  <!-- <button type="button" onclick="addCustomTicket()" class="btn buttonGreenBg btn-lg px-3">Add Ticket Type</button> -->
+                  <!-- <div id="custom-tickets-container" class="col-12 col-md-6">
+                     
+                  </div> -->
+            </div>
+         </div>
+      </div>
+      <div class="row p-5">
+         <input type="submit" value="Update Event" class="btn buttonGreenBg btn-lg fontSize3VW">
+      </div>
+
+      <div>
+      </div>
+   </form>
+</div>
+
+</div>
+{% endblock %}
