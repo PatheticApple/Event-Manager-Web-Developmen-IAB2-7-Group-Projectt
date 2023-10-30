@@ -29,8 +29,17 @@
                      </div>
                      <div class="col-12 col-md-6 px-2">
                         <label for="stateInput" class="form-label label-large">State</label>
-                        <input type="text" class="form-control form-control-lg" id="stateInput"
-                           aria-describedby="stateInput" name="state" value="{{event.state}}">
+                        <select class="form-control form-control-lg" id="stateInput"
+                           aria-describedby="stateInput" name="state" required>
+                           <option selected disabled hidden>--Select--</option>
+                           <option>QLD</option>
+                           <option>NSW</option>
+                           <option>VIC</option>
+                           <option>TAS</option>
+                           <option>SA</option>
+                           <option>NT</option>
+                           <option>WA</option>
+                        </select>
                      </div>
                   </div>
 

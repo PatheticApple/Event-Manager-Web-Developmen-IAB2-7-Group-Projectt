@@ -1,6 +1,18 @@
 {% extends 'base.html' %}
 {% from 'bootstrap5/form.html' import render_form %}
 {% block content %}
+{% with errors = get_flashed_messages(category_filter=["error"]) %}
+    {% if errors%}
+    {% for msg in errors %}
+    <div id="messageBox"
+        style="border-style: solid; border-color: #f04d4d; background-color: #1a1a1a; border-radius: 5px;">
+        <div id="text" style="color: #f04d4d; text-align: center;">
+            <p style="margin: 5px;">//: {{msg}}</p>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
 <div class="container-fluid" id="eventDetailsHeader">
    <img class="w-100" src="{{ url_for('static',filename=event.imagePath) }}" alt="Melody Master Photo">
 </div>

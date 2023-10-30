@@ -43,9 +43,14 @@ def book(id):
                          eventID = id, 
                          ticketID = ticketID)
     db.session.add(new_ticket)
-    eventDetails.availability -=quantity # ERROR HANDLING HERE PLEASEE
-    ticketDetails.ticketAvailability -=quantity # ERROR HANDLING HERE PLEASEE
-    db.session.commit()
+    if ((eventDetails.availability - quantity) > 0 and (eventDetails.ticketavailability - quantity) > 0):
+        eventDetails.availability -=quantity
+        ticketDetails.ticketAvailability -=quantity
+        db.session.commit()
+        return redirect(url_for('bookings.show'))
+    else:
+        flash("Attempted to book more tickets than available", "error")
+        return redirect(url_for('details.show', id=id))
 
     # # Update the database with the booking information
     # conn = sqlite3.connect('tickets.db')
@@ -54,7 +59,7 @@ def book(id):
     # conn.commit()
     # conn.close()
 
-    return redirect(url_for('bookings.show'))
+    
 
 @detailsbp.route('/<id>/comment', methods = ['GET', 'POST'])
 @login_required

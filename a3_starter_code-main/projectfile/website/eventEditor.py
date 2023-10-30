@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from .models import Event, EventDetail, TicketType
 import os
 from . import db
@@ -96,6 +96,7 @@ def create_event():
     #     db.session.commit()
 
     # Redirect to a success page or home page
+    flash("Event created", "info")
     return redirect(url_for('main.index'))
 
 
