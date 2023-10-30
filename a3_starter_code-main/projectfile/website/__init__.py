@@ -11,7 +11,6 @@ db = SQLAlchemy()
 def create_app():
   
     app=Flask(__name__)  # this is the name of the module/package that is calling this app
-    # app.debug=True
     app.secret_key='somesecretgoeshere'
     #set the app configuration data 
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///eventManagement.sqlite'
@@ -21,17 +20,11 @@ def create_app():
 
     
     
-    # bootstrap = Bootstrap5(app)
     
     #initialize the login manager
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
-    
-    #set the name of the login function that lets user login
-    # in our case it is auth.login (blueprintname.viewfunction name)
-    # login_manager.login_view='auth.login'
-    # login_manager.init_app(app)
 
     # create a user loader function takes userid and returns User
     from .models import User  # importing here to avoid circular references
@@ -55,12 +48,6 @@ def create_app():
 
     from . import auth
     app.register_blueprint(auth.authbp)
-    
-    from . import register
-    app.register_blueprint(register.registerbp)
-
-    from . import login
-    app.register_blueprint(login.loginbp)
 
     @app.errorhandler(404) 
     # inbuilt function which takes error as parameter 
